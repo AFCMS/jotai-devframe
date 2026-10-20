@@ -36,7 +36,7 @@
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
     "@e18e/eslint-plugin": "^0.8.1",
-    "@types/node": "^24.13.3",
+    "@types/node": "^26.6.5",
     "@vitest/coverage-v8": "^5.0.5",
     "bumpp": "^12.3.0",
     "oxfmt": "^0.74.0",
