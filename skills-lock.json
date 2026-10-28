@@ -1,12 +1,6 @@
 {
   "version": 1,
   "skills": {
-    "devframe": {
-      "source": "devframes/devframe",
-      "sourceType": "github",
-      "skillPath": "skills/devframe/SKILL.md",
-      "computedHash": "144d1fff1a76a70ff0557437e837d7b476f6d7c2136f87095045f5d56cb8bb9a"
-    },
     "tsdown": {
       "source": "rolldown/tsdown",
       "sourceType": "github",
