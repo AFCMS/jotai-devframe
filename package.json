@@ -16,14 +16,50 @@
     "dist"
   ],
   "type": "module",
-  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "./dist/browser/register.js",
+    "./dist/browser/bootstrap.js"
+  ],
+  "types": "./dist/browser/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "types": "./dist/browser/index.d.ts",
+      "production": "./dist/browser/noop.js",
+      "default": "./dist/browser/index.js"
+    },
+    "./utils": {
+      "types": "./dist/browser/utils.d.ts",
+      "production": "./dist/browser/noop.js",
+      "default": "./dist/browser/utils.js"
+    },
+    "./runtime": {
+      "types": "./dist/browser/runtime.d.ts",
+      "production": "./dist/browser/noop-runtime.js",
+      "default": "./dist/browser/runtime.js"
+    },
+    "./register": {
+      "types": "./dist/browser/register.d.ts",
+      "production": "./dist/browser/noop-register.js",
+      "default": "./dist/browser/register.js"
+    },
+    "./devframe": {
+      "types": "./dist/node/devframe.d.ts",
+      "default": "./dist/node/devframe.js"
+    },
+    "./vite": {
+      "types": "./dist/node/vite.d.ts",
+      "default": "./dist/node/vite.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
+    "build": "node --import @oxc-node/core/register scripts/clean.ts && tsdown && vite build --config panel/vite.config.ts && node --import @oxc-node/core/register scripts/check-package.ts",
+    "dev": "pnpm build && pnpm --parallel run '/^watch:.*/'",
+    "watch:library": "tsdown --watch",
+    "watch:panel": "vite build --watch --config panel/vite.config.ts",
+    "example:vite": "vite --config examples/vite/vite.config.ts",
+    "example:node": "node --import @oxc-node/core/register examples/node/server.ts",
+    "test:package": "node --import @oxc-node/core/register scripts/test-package.ts",
     "test": "vitest --run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
@@ -33,23 +69,54 @@
     "format:check": "oxfmt --check",
     "lint": "oxlint"
   },
+  "dependencies": {
+    "devframe": "^1.2.6"
+  },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
     "@e18e/eslint-plugin": "^0.8.1",
-    "@types/node": "^24.13.3",
+    "@oxc-node/core": "^1.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/devtools": "0.8.0",
+    "@vitejs/devtools-kit": "0.8.0",
     "@vitest/coverage-v8": "^5.0.5",
     "bumpp": "^12.3.0",
-    "oxfmt": "^0.74.0",
-    "oxlint": "^1.89.0",
-    "oxlint-tsgolint": "^7.0.2004",
-    "preact": "^11.0.1",
+    "esbuild": "^0.28.2",
+    "jotai": "3.0.1",
+    "jsdom": "^30.1.3",
+    "oxfmt": "^0.75.0",
+    "oxlint": "^1.90.0",
+    "oxlint-tsgolint": "^7.0.2005",
     "publint": "^0.3.25",
-    "tsdown": "^0.23.1",
-    "typescript": "^7.0.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tsdown": "^0.23.2",
+    "typescript": "7.1.0-beta",
+    "vite": "^8.3.5",
     "vitest": "^5.0.5"
   },
   "peerDependencies": {
-    "preact": "^11"
+    "@vitejs/devtools-kit": "~0.8.0",
+    "jotai": "3.0.1",
+    "react": ">=18 <20",
+    "vite": "^8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "jotai": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "@vitejs/devtools-kit": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    }
   },
   "devEngines": {
     "packageManager": {
@@ -59,7 +126,7 @@
     },
     "runtime": {
       "name": "node",
-      "version": "^24",
+      "version": "^26",
       "onFail": "error"
     }
   }

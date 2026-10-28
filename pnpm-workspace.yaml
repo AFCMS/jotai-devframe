@@ -5,3 +5,11 @@ blockExoticSubdeps: true
 trustPolicy: no-downgrade
 
 pmOnFail: ignore
+
+allowBuilds:
+  esbuild: true
+permissions:
+  '@vitejs/devtools-kit':
+    skills: true
+  devframe:
+    skills: true

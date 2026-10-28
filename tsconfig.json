@@ -6,7 +6,9 @@
     "module": "preserve",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "types": [],
+    "allowImportingTsExtensions": true,
+    "types": ["node", "react", "react-dom"],
+    "jsx": "react-jsx",
     "strict": true,
     "noUnusedLocals": true,
     "declaration": true,
@@ -16,5 +18,5 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": ["src", "panel", "tests", "scripts", "examples/**/*.tsx", "examples/**/*.ts"]
 }
