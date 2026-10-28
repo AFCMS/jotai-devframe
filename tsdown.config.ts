@@ -1,6 +1,7 @@
 import { defineConfig, type UserConfig } from "tsdown";
 
 const common = {
+  clean: true,
   format: ["esm"],
   sourcemap: true,
   dts: { generator: "tsgo" },
