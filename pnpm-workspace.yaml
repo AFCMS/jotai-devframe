@@ -9,7 +9,7 @@ pmOnFail: ignore
 allowBuilds:
   esbuild: true
 permissions:
-  '@vitejs/devtools-kit':
+  "@vitejs/devtools-kit":
     skills: true
   devframe:
     skills: true
